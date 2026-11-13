@@ -20,6 +20,12 @@ npm run build
 
 The build creates the frontend in `dist/client` and a self-contained Cloudflare Worker in `dist/server/index.js`. The Worker serves the frontend and the same cached weather endpoint. A static-only host needs an equivalent server endpoint for weather.
 
+## Netlify deployment
+
+`netlify.toml` configures Node.js 22, `npm run build:netlify`, and the `dist/client` publish directory. `netlify/functions/weather.mts` serves `/api/weather` using the shared weather proxy. Netlify bundles that function separately from the frontend. No weather API key is needed.
+
+The Netlify project is `awos-station-diagnostics` in the `salaramir` team. Local `.netlify` metadata is ignored by Git.
+
 ## Behavior
 
 - Weather polling defaults to 60 seconds. The toolbar offers 2- and 5-minute intervals, pause/resume, and manual refresh. Each server instance caches a successful upstream response for 60 seconds and shares concurrent requests.
